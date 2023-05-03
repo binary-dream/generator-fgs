@@ -24,14 +24,16 @@ module.exports = class extends BaseGenerator {
   }
 
   writing() {
-    const screenNameLowerCase = screenNameLowerCase;
+    const screenNameLowerCase = this.props.screenName.toLowerCase();
+    const screenNameCamelCaseWithoutUnderline = camel(this.props.screenName);
+    const screenNameUpperCase = this.props.screenName.toUpperCase();
 
     const templateData = {
-      screenNameUpperCase: this.props.screenName.toUpperCase(),
+      screenNameUpperCase,
       screenNameLowerCase,
       packageName: this.packageName,
       fgsUtilsPackageName: this.fgsUtilsPackageName,
-      screenNameCamelCaseWithoutUnderline: camel(this.props.screenName)
+      screenNameCamelCaseWithoutUnderline
     };
 
     this.fs.copyTpl(
@@ -39,7 +41,31 @@ module.exports = class extends BaseGenerator {
       this.destinationPath(
         `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen.dart`
       ),
-      templateData
+      {
+        ...templateData,
+        importPackages: [
+          `import 'package:flutter/material.dart';`,
+          `import 'package:flutter_bloc/flutter_bloc.dart';`,
+          `import 'package:${this.packageName}/di_container/di_container.dart';`,
+          `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_bloc.dart';`,
+          `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_data.dart';`,
+          `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_event.dart';`,
+          `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_state.dart';`,
+          `import 'package:fgs_utils/fgs_utils.dart';`
+        ]
+          .sort()
+          .join("\n")
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath("screen_data.dart"),
+      this.destinationPath(
+        `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_data.dart`
+      ),
+      {
+        ...templateData
+      }
     );
 
     this.fs.copyTpl(
@@ -47,7 +73,14 @@ module.exports = class extends BaseGenerator {
       this.destinationPath(
         `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_event.dart`
       ),
-      templateData
+      {
+        ...templateData,
+        importPackages: [
+          `import 'package:freezed_annotation/freezed_annotation.dart';`
+        ]
+          .sort()
+          .join("\n")
+      }
     );
 
     this.fs.copyTpl(
@@ -55,7 +88,19 @@ module.exports = class extends BaseGenerator {
       this.destinationPath(
         `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_bloc.dart`
       ),
-      templateData
+      {
+        ...templateData,
+        importPackages: [
+          `import 'package:flutter_bloc/flutter_bloc.dart';`,
+          `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_data.dart';`,
+          `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_event.dart';`,
+          `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_state.dart';`,
+          `import 'package:${this.packageName}/screens/${screenNameLowerCase}/event_handlers/${screenNameLowerCase}__on_screen_started_event_handler.dart';`,
+          `import 'package:fgs_utils/fgs_utils.dart';`
+        ]
+          .sort()
+          .join("\n")
+      }
     );
 
     this.fs.copyTpl(
@@ -63,7 +108,15 @@ module.exports = class extends BaseGenerator {
       this.destinationPath(
         `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_state.dart`
       ),
-      templateData
+      {
+        ...templateData,
+        importPackages: [
+          `import 'package:fgs_utils/fgs_utils.dart';`,
+          `import 'package:freezed_annotation/freezed_annotation.dart';`
+        ]
+          .sort()
+          .join("\n")
+      }
     );
 
     this.fs.copyTpl(
@@ -71,7 +124,18 @@ module.exports = class extends BaseGenerator {
       this.destinationPath(
         `lib/screens/${screenNameLowerCase}/event_handlers/${screenNameLowerCase}__on_screen_started_event_handler.dart`
       ),
-      templateData
+      {
+        ...templateData,
+        importPackages: [
+          `import 'package:flutter_bloc/flutter_bloc.dart';`,
+          `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_bloc.dart';`,
+          `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_event.dart';`,
+          `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_state.dart';`,
+          `import 'package:${this.packageName}/routes.dart';`
+        ]
+          .sort()
+          .join("\n")
+      }
     );
 
     let routesDataAsString;
@@ -96,7 +160,24 @@ module.exports = class extends BaseGenerator {
         "// --- ROUTES NAMES END --------------------------------------------------------"
       ) {
         newRoutesDataAsArray.push(
-          `const ROUTES__${screenNameLowerCase}RouteName = "${screenNameLowerCase}";`
+          `const ROUTES__${screenNameCamelCaseWithoutUnderline}RouteName = '${screenNameCamelCaseWithoutUnderline}';`
+        );
+      }
+
+      if (
+        line ===
+        "    // --- ROUTES END ----------------------------------------------------------"
+      ) {
+        newRoutesDataAsArray.push(
+          `    FGS_UTILS__Route(`,
+          `      name: ROUTES__${screenNameCamelCaseWithoutUnderline}RouteName,`,
+          `      path: '/${screenNameLowerCase.replace("_", "-")}',`,
+          `      builder: (context, routeState) {`,
+          `        return ${screenNameUpperCase}__Screen(`,
+          `          data: ${screenNameUpperCase}__ScreenData(),`,
+          `        );`,
+          `      },`,
+          `    ),`
         );
       }
 

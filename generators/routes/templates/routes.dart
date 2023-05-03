@@ -1,4 +1,4 @@
-import 'package:<%= fgsUtilsPackageName %>/router/fgs_utils__router.dart';
+<%- importPackages %>
 
 // --- ROUTES NAMES BEGIN ------------------------------------------------------
 // --- ROUTES NAMES END --------------------------------------------------------
@@ -15,7 +15,7 @@ final _router = FGS_UTILS__Router(
   routes: [
     // --- ROUTES BEGIN --------------------------------------------------------
     // --- ROUTES END ----------------------------------------------------------
-  ]
+  ],
 );
 
-get <%= packageName %>__router => _router;
+FGS_UTILS__Router get <%= packageName %>__router => _router;

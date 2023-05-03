@@ -25,7 +25,12 @@ module.exports = class extends BaseGenerator {
     this.fs.copyTpl(
       this.templatePath("routes.dart"),
       this.destinationPath(`lib/routes.dart`),
-      templateData
+      {
+        ...templateData,
+        importPackages: [`import 'package:fgs_utils/fgs_utils.dart';`]
+          .sort()
+          .join("\n")
+      }
     );
   }
 };

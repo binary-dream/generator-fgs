@@ -20,11 +20,7 @@ class BaseGenerator extends Generator {
     );
     const pubspecObject = YAML.parse(pubspecDataAsString);
     this.packageName = pubspecObject.name;
-    for (let i = 1; i <= 100; i++) {
-      if (pubspecObject.dependencies[`fgs_utils_v${i}`]) {
-        this.fgsUtilsPackageName = `fgs_utils_v${i}`;
-      }
-    }
+    this.fgsUtilsPackageName = "fgs_utils";
   }
 }
 
