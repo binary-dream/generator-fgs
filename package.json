@@ -34,6 +34,7 @@
   "dependencies": {
     "chalk": "^2.1.0",
     "to-camel-case": "^1.0.0",
+    "upper-case-first": "^2.0.2",
     "yaml": "^2.2.1",
     "yeoman-generator": "^3.1.1",
     "yosay": "^2.0.2"

@@ -1,6 +1,10 @@
 <%- importPackages %>
 
-class <%= screenNameUpperCase %>__ScreenBloc extends Bloc<<%= screenNameUpperCase %>__ScreenEvent, <%= screenNameUpperCase %>__ScreenState> {
+class <%= screenNameUpperCase %>__ScreenBloc 
+  extends Bloc<
+    <%= screenNameUpperCase %>__ScreenEvent, 
+    <%= screenNameUpperCase %>__ScreenState
+  > {
   <%= screenNameUpperCase %>__ScreenBloc({
     required this.data,
     required <%= screenNameUpperCase %>__ScreenState initialState, 
@@ -10,11 +14,12 @@ class <%= screenNameUpperCase %>__ScreenBloc extends Bloc<<%= screenNameUpperCas
   }) : super(initialState) {
     on<<%= screenNameUpperCase %>__ScreenEvent>((event, emit) async {
       await event.map(
-        screenStarted: (screenStarted) => <%= screenNameUpperCase %>__onScreenStartedEventHandler(
-          bloc: this,
-          event: screenStarted, 
-          emit: emit,
-        ),
+        screenStarted: (screenStarted) => 
+          <%= screenNameUpperCase %>__onScreenStartedEventHandler(
+            bloc: this,
+            event: screenStarted, 
+            emit: emit,
+          ),
       );
     });
   }
