@@ -5,7 +5,7 @@ import { upperCaseFirst } from "upper-case-first";
 
 class ComponentGenerator extends BaseGenerator {
   async prompting() {
-    super.welcomeLog();
+    super.welcomeLog({ showCommands: false });
 
     const prompts = [
       {

@@ -4,7 +4,7 @@ import camel from "to-camel-case";
 
 class ScreenGenerator extends BaseGenerator {
   async prompting() {
-    super.welcomeLog();
+    super.welcomeLog({ showCommands: false });
 
     const prompts = [
       {
@@ -204,7 +204,7 @@ class ScreenGenerator extends BaseGenerator {
         newRoutesDataAsArray.push(
           `    FGS_UTILS__Route(`,
           `      name: ROUTES__${screenNameCamelCaseWithoutUnderline}RouteName,`,
-          `      path: '/${screenNameLowerCase.replace("_", "-")}',`,
+          `      path: '/${screenNameLowerCase.replaceAll("_", "-")}',`,
           `      builder: (context, routeState) {`,
           `        return ${screenNameUpperCase}__Screen(`,
           `          data: ${screenNameUpperCase}__ScreenData(),`,

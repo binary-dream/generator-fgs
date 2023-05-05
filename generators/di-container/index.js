@@ -3,7 +3,7 @@ import BaseGenerator from "../../base_generator.js";
 
 class DiContainerGenerator extends BaseGenerator {
   async prompting() {
-    super.welcomeLog();
+    super.welcomeLog({ showCommands: false });
 
     const prompts = [];
 
