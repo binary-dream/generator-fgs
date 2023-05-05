@@ -1,13 +1,13 @@
 <%- importPackages %>
 
-class <%= screenNameUpperCase %>__<%= widgetNameCamelCaseWithouUnderlineFirstUpper %>Widget 
+class <%= screenNameUpperCase %>__<%= widgetNameCamelCaseWithoutUnderlineFirstUpper %>Widget 
   extends StatelessWidget {
-  const <%= screenNameUpperCase %>__<%= widgetNameCamelCaseWithouUnderlineFirstUpper %>Widget({
+  const <%= screenNameUpperCase %>__<%= widgetNameCamelCaseWithoutUnderlineFirstUpper %>Widget({
     super.key, 
     required this.state,
   });
 
-  final <%= screenNameUpperCase %>__<%= widgetNameCamelCaseWithouUnderlineFirstUpper %>WidgetState state;
+  final <%= screenNameUpperCase %>__<%= widgetNameCamelCaseWithoutUnderlineFirstUpper %>WidgetState state;
 
   @override
   Widget build(BuildContext context) {

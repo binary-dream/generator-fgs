@@ -35,7 +35,7 @@ module.exports = class extends BaseGenerator {
     const screenNameUpperCase = this.props.screenName.toUpperCase();
     const widgetNameLowerCase = this.props.widgetName.toLowerCase();
     const widgetNameCamelCaseWithoutUnderline = camel(this.props.widgetName);
-    const widgetNameCamelCaseWithouUnderlineFirstUpper = upperCaseFirstPackage.upperCaseFirst(
+    const widgetNameCamelCaseWithoutUnderlineFirstUpper = upperCaseFirstPackage.upperCaseFirst(
       camel(this.props.widgetName)
     );
 
@@ -47,22 +47,31 @@ module.exports = class extends BaseGenerator {
       screenNameCamelCaseWithoutUnderline,
       widgetNameLowerCase,
       widgetNameCamelCaseWithoutUnderline,
-      widgetNameCamelCaseWithouUnderlineFirstUpper
+      widgetNameCamelCaseWithoutUnderlineFirstUpper
     };
+
+    let widgetDestinationPath;
+    let widgetScreenSpecificImports;
+
+    if (screenNameLowerCase === "shared") {
+      widgetDestinationPath = `lib/shared/widgets/${widgetNameLowerCase}/shared__${widgetNameLowerCase}_widget.dart`;
+      widgetScreenSpecificImports = [
+        `import 'package:${this.packageName}/shared/widgets/${widgetNameLowerCase}/shared__${widgetNameLowerCase}_widget_state.dart';`
+      ];
+    } else {
+      widgetDestinationPath = `lib/screens/${screenNameLowerCase}/widgets/${widgetNameLowerCase}/${screenNameLowerCase}__${widgetNameLowerCase}_widget.dart`;
+      widgetScreenSpecificImports = [
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/widgets/${widgetNameLowerCase}/${screenNameLowerCase}__${widgetNameLowerCase}_widget_state.dart';`
+      ];
+    }
 
     this.fs.copyTpl(
       this.templatePath("widget.dart"),
-      this.destinationPath(
-        `lib/${
-          screenNameLowerCase === "shared" ? "" : "screens/"
-        }${screenNameLowerCase}/widgets/${widgetNameLowerCase}/${screenNameLowerCase}__${widgetNameLowerCase}_widget.dart`
-      ),
+      this.destinationPath(widgetDestinationPath),
       {
         ...templateData,
         importPackages: [
-          `import 'package:${this.packageName}/${
-            screenNameLowerCase === "shared" ? "" : "screens/"
-          }${screenNameLowerCase}/widgets/${widgetNameLowerCase}/${screenNameLowerCase}__${widgetNameLowerCase}_widget_state.dart';`,
+          ...widgetScreenSpecificImports,
           `import 'package:flutter/material.dart';`
         ]
           .sort()
@@ -70,13 +79,17 @@ module.exports = class extends BaseGenerator {
       }
     );
 
+    let widgetStateDestinationPath;
+
+    if (screenNameLowerCase === "shared") {
+      widgetStateDestinationPath = `lib/shared/widgets/${widgetNameLowerCase}/shared__${widgetNameLowerCase}_widget_state.dart`;
+    } else {
+      widgetStateDestinationPath = `lib/screens/${screenNameLowerCase}/widgets/${widgetNameLowerCase}/${screenNameLowerCase}__${widgetNameLowerCase}_widget_state.dart`;
+    }
+
     this.fs.copyTpl(
       this.templatePath("widget_state.dart"),
-      this.destinationPath(
-        `lib/${
-          screenNameLowerCase === "shared" ? "" : "screens/"
-        }${screenNameLowerCase}/widgets/${widgetNameLowerCase}/${screenNameLowerCase}__${widgetNameLowerCase}_widget_state.dart`
-      ),
+      this.destinationPath(widgetStateDestinationPath),
       {
         ...templateData,
         importPackages: [
