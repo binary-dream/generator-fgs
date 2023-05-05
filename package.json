@@ -6,8 +6,9 @@
   "author": {
     "name": "Marco Aurélio Prado",
     "email": "marco.pdsv@gmail.com",
-    "url": ""
+    "url": "https://mprado.me"
   },
+  "type": "module",
   "files": [
     "generators"
   ],

@@ -1,7 +1,7 @@
 "use strict";
-const BaseGenerator = require("../../base_generator");
+import BaseGenerator from "../../base_generator.js";
 
-module.exports = class extends BaseGenerator {
+class RoutesGenerator extends BaseGenerator {
   async prompting() {
     super.welcomeLog();
 
@@ -22,8 +22,12 @@ module.exports = class extends BaseGenerator {
       fgsUtilsPackageName: this.fgsUtilsPackageName
     };
 
+    this._writeRoutes({ templateData });
+  }
+
+  _writeRoutes({ templateData }) {
     this.fs.copyTpl(
-      this.templatePath("routes.dart"),
+      this.templatePath("routes.dart.ejs"),
       this.destinationPath(`lib/routes.dart`),
       {
         ...templateData,
@@ -33,4 +37,6 @@ module.exports = class extends BaseGenerator {
       }
     );
   }
-};
+}
+
+export default RoutesGenerator;

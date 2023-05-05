@@ -1,9 +1,9 @@
 "use strict";
-const BaseGenerator = require("../../base_generator");
-const camel = require("to-camel-case");
-const upperCaseFirstPackage = require("upper-case-first");
+import BaseGenerator from "../../base_generator.js";
+import camel from "to-camel-case";
+import { upperCaseFirst } from "upper-case-first";
 
-module.exports = class extends BaseGenerator {
+class WidgetGenerator extends BaseGenerator {
   async prompting() {
     super.welcomeLog();
 
@@ -35,7 +35,7 @@ module.exports = class extends BaseGenerator {
     const screenNameUpperCase = this.props.screenName.toUpperCase();
     const widgetNameLowerCase = this.props.widgetName.toLowerCase();
     const widgetNameCamelCaseWithoutUnderline = camel(this.props.widgetName);
-    const widgetNameCamelCaseWithoutUnderlineFirstUpper = upperCaseFirstPackage.upperCaseFirst(
+    const widgetNameCamelCaseWithoutUnderlineFirstUpper = upperCaseFirst(
       camel(this.props.widgetName)
     );
 
@@ -50,46 +50,65 @@ module.exports = class extends BaseGenerator {
       widgetNameCamelCaseWithoutUnderlineFirstUpper
     };
 
-    let widgetDestinationPath;
-    let widgetScreenSpecificImports;
+    this._writeWidget({
+      templateData,
+      screenNameLowerCase,
+      widgetNameLowerCase
+    });
+    this._writeWidgetState({
+      templateData,
+      screenNameLowerCase,
+      widgetNameLowerCase
+    });
+  }
+
+  _writeWidget({ templateData, screenNameLowerCase, widgetNameLowerCase }) {
+    let destinationPath;
+    let screenSpecificImports;
 
     if (screenNameLowerCase === "shared") {
-      widgetDestinationPath = `lib/shared/widgets/${widgetNameLowerCase}/shared__${widgetNameLowerCase}_widget.dart`;
-      widgetScreenSpecificImports = [
+      destinationPath = `lib/shared/widgets/${widgetNameLowerCase}/shared__${widgetNameLowerCase}_widget.dart`;
+      screenSpecificImports = [
         `import 'package:${this.packageName}/shared/widgets/${widgetNameLowerCase}/shared__${widgetNameLowerCase}_widget_state.dart';`
       ];
     } else {
-      widgetDestinationPath = `lib/screens/${screenNameLowerCase}/widgets/${widgetNameLowerCase}/${screenNameLowerCase}__${widgetNameLowerCase}_widget.dart`;
-      widgetScreenSpecificImports = [
+      destinationPath = `lib/screens/${screenNameLowerCase}/widgets/${widgetNameLowerCase}/${screenNameLowerCase}__${widgetNameLowerCase}_widget.dart`;
+      screenSpecificImports = [
         `import 'package:${this.packageName}/screens/${screenNameLowerCase}/widgets/${widgetNameLowerCase}/${screenNameLowerCase}__${widgetNameLowerCase}_widget_state.dart';`
       ];
     }
 
     this.fs.copyTpl(
-      this.templatePath("widget.dart"),
-      this.destinationPath(widgetDestinationPath),
+      this.templatePath("widget.dart.ejs"),
+      this.destinationPath(destinationPath),
       {
         ...templateData,
         importPackages: [
-          ...widgetScreenSpecificImports,
+          ...screenSpecificImports,
           `import 'package:flutter/material.dart';`
         ]
           .sort()
           .join("\n")
       }
     );
+  }
 
-    let widgetStateDestinationPath;
+  _writeWidgetState({
+    templateData,
+    screenNameLowerCase,
+    widgetNameLowerCase
+  }) {
+    let destinationPath;
 
     if (screenNameLowerCase === "shared") {
-      widgetStateDestinationPath = `lib/shared/widgets/${widgetNameLowerCase}/shared__${widgetNameLowerCase}_widget_state.dart`;
+      destinationPath = `lib/shared/widgets/${widgetNameLowerCase}/shared__${widgetNameLowerCase}_widget_state.dart`;
     } else {
-      widgetStateDestinationPath = `lib/screens/${screenNameLowerCase}/widgets/${widgetNameLowerCase}/${screenNameLowerCase}__${widgetNameLowerCase}_widget_state.dart`;
+      destinationPath = `lib/screens/${screenNameLowerCase}/widgets/${widgetNameLowerCase}/${screenNameLowerCase}__${widgetNameLowerCase}_widget_state.dart`;
     }
 
     this.fs.copyTpl(
-      this.templatePath("widget_state.dart"),
-      this.destinationPath(widgetStateDestinationPath),
+      this.templatePath("widget_state.dart.ejs"),
+      this.destinationPath(destinationPath),
       {
         ...templateData,
         importPackages: [
@@ -100,4 +119,6 @@ module.exports = class extends BaseGenerator {
       }
     );
   }
-};
+}
+
+export default WidgetGenerator;

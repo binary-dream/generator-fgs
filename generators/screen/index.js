@@ -1,8 +1,8 @@
 "use strict";
-const BaseGenerator = require("../../base_generator");
-const camel = require("to-camel-case");
+import BaseGenerator from "../../base_generator.js";
+import camel from "to-camel-case";
 
-module.exports = class extends BaseGenerator {
+class ScreenGenerator extends BaseGenerator {
   async prompting() {
     super.welcomeLog();
 
@@ -36,8 +36,25 @@ module.exports = class extends BaseGenerator {
       screenNameCamelCaseWithoutUnderline
     };
 
+    this._writeScreen({ templateData, screenNameLowerCase });
+    this._writeScreenData({ templateData, screenNameLowerCase });
+    this._writeScreenEvent({ templateData, screenNameLowerCase });
+    this._writeScreenBloc({ templateData, screenNameLowerCase });
+    this._writeScreenState({ templateData, screenNameLowerCase });
+    this._writeOnScreenStartedEventHandler({
+      templateData,
+      screenNameLowerCase
+    });
+    this._writeRoutes({
+      screenNameLowerCase,
+      screenNameCamelCaseWithoutUnderline,
+      screenNameUpperCase
+    });
+  }
+
+  _writeScreen({ templateData, screenNameLowerCase }) {
     this.fs.copyTpl(
-      this.templatePath("screen.dart"),
+      this.templatePath("screen.dart.ejs"),
       this.destinationPath(
         `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen.dart`
       ),
@@ -57,19 +74,21 @@ module.exports = class extends BaseGenerator {
           .join("\n")
       }
     );
+  }
 
+  _writeScreenData({ templateData, screenNameLowerCase }) {
     this.fs.copyTpl(
-      this.templatePath("screen_data.dart"),
+      this.templatePath("screen_data.dart.ejs"),
       this.destinationPath(
         `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_data.dart`
       ),
-      {
-        ...templateData
-      }
+      templateData
     );
+  }
 
+  _writeScreenEvent({ templateData, screenNameLowerCase }) {
     this.fs.copyTpl(
-      this.templatePath("screen_event.dart"),
+      this.templatePath("screen_event.dart.ejs"),
       this.destinationPath(
         `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_event.dart`
       ),
@@ -82,9 +101,11 @@ module.exports = class extends BaseGenerator {
           .join("\n")
       }
     );
+  }
 
+  _writeScreenBloc({ templateData, screenNameLowerCase }) {
     this.fs.copyTpl(
-      this.templatePath("screen_bloc.dart"),
+      this.templatePath("screen_bloc.dart.ejs"),
       this.destinationPath(
         `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_bloc.dart`
       ),
@@ -102,9 +123,11 @@ module.exports = class extends BaseGenerator {
           .join("\n")
       }
     );
+  }
 
+  _writeScreenState({ templateData, screenNameLowerCase }) {
     this.fs.copyTpl(
-      this.templatePath("screen_state.dart"),
+      this.templatePath("screen_state.dart.ejs"),
       this.destinationPath(
         `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_state.dart`
       ),
@@ -118,9 +141,13 @@ module.exports = class extends BaseGenerator {
           .join("\n")
       }
     );
+  }
 
+  _writeOnScreenStartedEventHandler({ templateData, screenNameLowerCase }) {
     this.fs.copyTpl(
-      this.templatePath("event_handlers/on_screen_started_event_handler.dart"),
+      this.templatePath(
+        "event_handlers/on_screen_started_event_handler.dart.ejs"
+      ),
       this.destinationPath(
         `lib/screens/${screenNameLowerCase}/event_handlers/${screenNameLowerCase}__on_screen_started_event_handler.dart`
       ),
@@ -137,7 +164,13 @@ module.exports = class extends BaseGenerator {
           .join("\n")
       }
     );
+  }
 
+  _writeRoutes({
+    screenNameLowerCase,
+    screenNameCamelCaseWithoutUnderline,
+    screenNameUpperCase
+  }) {
     let routesDataAsString;
 
     try {
@@ -189,4 +222,6 @@ module.exports = class extends BaseGenerator {
       newRoutesDataAsArray.join("\n")
     );
   }
-};
+}
+
+export default ScreenGenerator;

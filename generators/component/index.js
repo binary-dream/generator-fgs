@@ -1,9 +1,9 @@
 "use strict";
-const BaseGenerator = require("../../base_generator");
-const camel = require("to-camel-case");
-const upperCaseFirstPackage = require("upper-case-first");
+import BaseGenerator from "../../base_generator.js";
+import camel from "to-camel-case";
+import { upperCaseFirst } from "upper-case-first";
 
-module.exports = class extends BaseGenerator {
+class ComponentGenerator extends BaseGenerator {
   async prompting() {
     super.welcomeLog();
 
@@ -38,7 +38,7 @@ module.exports = class extends BaseGenerator {
     const componentNameCamelCaseWithoutUnderline = camel(
       this.props.componentName
     );
-    const componentNameCamelCaseWithoutUnderlineFirstUpper = upperCaseFirstPackage.upperCaseFirst(
+    const componentNameCamelCaseWithoutUnderlineFirstUpper = upperCaseFirst(
       camel(this.props.componentName)
     );
 
@@ -59,31 +59,26 @@ module.exports = class extends BaseGenerator {
       screenNameLowerCase,
       componentNameLowerCase
     });
-
     this._writeComponentBloc({
       templateData,
       screenNameLowerCase,
       componentNameLowerCase
     });
-
     this._writeComponentState({
       templateData,
       screenNameLowerCase,
       componentNameLowerCase
     });
-
     this._writeComponentEvent({
       templateData,
       screenNameLowerCase,
       componentNameLowerCase
     });
-
     this._writeComponentData({
       templateData,
       screenNameLowerCase,
       componentNameLowerCase
     });
-
     this._writeComponentOnComponentStartedEventHandler({
       templateData,
       screenNameLowerCase,
@@ -101,7 +96,7 @@ module.exports = class extends BaseGenerator {
     let screenSpecificImports;
 
     if (screenNameLowerCase === "shared") {
-      templatePath = "component/component_in_shared.dart";
+      templatePath = "component/component_in_shared.dart.ejs";
       destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component.dart`;
       screenSpecificImports = [
         `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_bloc.dart';`,
@@ -110,7 +105,7 @@ module.exports = class extends BaseGenerator {
         `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_state.dart';`
       ];
     } else {
-      templatePath = "component/component_in_screen.dart";
+      templatePath = "component/component_in_screen.dart.ejs";
       destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component.dart`;
       screenSpecificImports = [
         `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_bloc.dart';`,
@@ -149,7 +144,7 @@ module.exports = class extends BaseGenerator {
     let screenSpecificImports;
 
     if (screenNameLowerCase === "shared") {
-      templatePath = "component_bloc/component_bloc_in_shared.dart";
+      templatePath = "component_bloc/component_bloc_in_shared.dart.ejs";
       destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_bloc.dart`;
       screenSpecificImports = [
         `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/event_handlers/shared__${componentNameLowerCase}__on_component_started_event_handler.dart';`,
@@ -158,7 +153,7 @@ module.exports = class extends BaseGenerator {
         `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_state.dart';`
       ];
     } else {
-      templatePath = "component_bloc/component_bloc_in_screen.dart";
+      templatePath = "component_bloc/component_bloc_in_screen.dart.ejs";
       destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_bloc.dart`;
       screenSpecificImports = [
         `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/event_handlers/${screenNameLowerCase}__${componentNameLowerCase}__on_component_started_event_handler.dart';`,
@@ -199,7 +194,7 @@ module.exports = class extends BaseGenerator {
     }
 
     this.fs.copyTpl(
-      this.templatePath("component_state.dart"),
+      this.templatePath("component_state.dart.ejs"),
       this.destinationPath(destinationPath),
       {
         ...templateData,
@@ -226,7 +221,7 @@ module.exports = class extends BaseGenerator {
     }
 
     this.fs.copyTpl(
-      this.templatePath("component_event.dart"),
+      this.templatePath("component_event.dart.ejs"),
       this.destinationPath(destinationPath),
       {
         ...templateData,
@@ -253,7 +248,7 @@ module.exports = class extends BaseGenerator {
     }
 
     this.fs.copyTpl(
-      this.templatePath("component_data.dart"),
+      this.templatePath("component_data.dart.ejs"),
       this.destinationPath(destinationPath),
       templateData
     );
@@ -285,7 +280,7 @@ module.exports = class extends BaseGenerator {
 
     this.fs.copyTpl(
       this.templatePath(
-        "event_handlers/on_component_started_event_handler.dart"
+        "event_handlers/on_component_started_event_handler.dart.ejs"
       ),
       this.destinationPath(destinationPath),
       {
@@ -299,4 +294,6 @@ module.exports = class extends BaseGenerator {
       }
     );
   }
-};
+}
+
+export default ComponentGenerator;

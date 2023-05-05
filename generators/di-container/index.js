@@ -1,7 +1,7 @@
 "use strict";
-const BaseGenerator = require("../../base_generator");
+import BaseGenerator from "../../base_generator.js";
 
-module.exports = class extends BaseGenerator {
+class DiContainerGenerator extends BaseGenerator {
   async prompting() {
     super.welcomeLog();
 
@@ -22,8 +22,14 @@ module.exports = class extends BaseGenerator {
       fgsUtilsPackageName: this.fgsUtilsPackageName
     };
 
+    this._writeDiContainer({ templateData });
+    this._writeDiContainerServicesCases({ templateData });
+    this._writeDiContainerServices({ templateData });
+  }
+
+  _writeDiContainer({ templateData }) {
     this.fs.copyTpl(
-      this.templatePath("di_container.dart"),
+      this.templatePath("di_container.dart.ejs"),
       this.destinationPath(`lib/di_container/di_container.dart`),
       {
         ...templateData,
@@ -37,9 +43,11 @@ module.exports = class extends BaseGenerator {
           .join("\n")
       }
     );
+  }
 
+  _writeDiContainerServicesCases({ templateData }) {
     this.fs.copyTpl(
-      this.templatePath("di_container_services_cases.dart"),
+      this.templatePath("di_container_services_cases.dart.ejs"),
       this.destinationPath(`lib/di_container/di_container_services_cases.dart`),
       {
         ...templateData,
@@ -51,9 +59,11 @@ module.exports = class extends BaseGenerator {
           .join("\n")
       }
     );
+  }
 
+  _writeDiContainerServices({ templateData }) {
     this.fs.copyTpl(
-      this.templatePath("di_container_services.dart"),
+      this.templatePath("di_container_services.dart.ejs"),
       this.destinationPath(`lib/di_container/di_container_services.dart`),
       {
         ...templateData,
@@ -66,4 +76,6 @@ module.exports = class extends BaseGenerator {
       }
     );
   }
-};
+}
+
+export default DiContainerGenerator;
