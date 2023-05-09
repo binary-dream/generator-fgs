@@ -14,17 +14,17 @@ class <%= screenNameUpperCase %>__Screen extends StatelessWidget with
 
   const <%= screenNameUpperCase %>__Screen({ 
     super.key,
-    required this.data,
+    required this.screenData,
   });
 
-  final <%= screenNameUpperCase %>__ScreenData data;
+  final <%= screenNameUpperCase %>__ScreenData screenData;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<<%= screenNameUpperCase %>__ScreenBloc>(
       create: (context) => <%= screenNameUpperCase %>__ScreenBloc(
-          data: 
-            data,
+          screenData: 
+            screenData,
           initialState: 
             const <%= screenNameUpperCase %>__ScreenState.main(),
           uuidServiceCases: 

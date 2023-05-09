@@ -207,7 +207,7 @@ class ScreenGenerator extends BaseGenerator {
           `      path: '/${screenNameLowerCase.replaceAll("_", "-")}',`,
           `      builder: (context, routeState) {`,
           `        return ${screenNameUpperCase}__Screen(`,
-          `          data: ${screenNameUpperCase}__ScreenData(),`,
+          `          screenData: ${screenNameUpperCase}__ScreenData(),`,
           `        );`,
           `      },`,
           `    ),`

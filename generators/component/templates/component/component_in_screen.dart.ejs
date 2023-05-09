@@ -3,10 +3,10 @@
 class <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>Component extends StatelessWidget {
   const <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>Component({
     super.key,
-    required this.data,
+    required this.componentData,
   });
 
-  final <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentData data;
+  final <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentData componentData;
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +14,8 @@ class <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirs
 
     return BlocProvider<<%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentBloc>(
       create: (context) => <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentBloc(
-        data: 
-          data,
+        componentData: 
+          componentData,
         initialState: 
           const <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentState.main(),
         screenBloc:

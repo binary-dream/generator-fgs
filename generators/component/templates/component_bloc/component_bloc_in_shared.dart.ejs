@@ -7,7 +7,7 @@ class <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirs
       <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentState
     > {
   <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentBloc({
-    required this.data,
+    required this.componentData,
     required <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentState initialState,
     required this.uuidServiceCases,
     required this.analyticsServiceCases,
@@ -25,7 +25,7 @@ class <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirs
     });
   }
 
-  final <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentData data;
+  final <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentData componentData;
   final FGS_UTILS__UuidServiceCases uuidServiceCases;
   final FGS_UTILS__AnalyticsServiceCases analyticsServiceCases;
   final FGS_UTILS__LogServiceCases logServiceCases;
