@@ -15,12 +15,14 @@ class <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirs
   }) : super(initialState) {
     on<<%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentEvent>((event, emit) async {
       await event.map(
-        componentStarted: (componentStarted) 
-          => <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__onComponentStartedEventHandler(
+        // --- EVENTS BEGIN ----------------------------------------------------
+        componentStarted: (componentStarted) => 
+          <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__onComponentStartedEventHandler(
             bloc: this,
             event: componentStarted, 
             emit: emit,
           ),
+        // --- EVENTS END ------------------------------------------------------
       );
     });
   }

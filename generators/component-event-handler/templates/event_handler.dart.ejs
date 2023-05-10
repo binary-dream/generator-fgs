@@ -1,0 +1,7 @@
+<%- importPackages %>
+
+Future<void> <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__on<%= eventNameCamelCaseWithoutUnderlineFirstUpper %>EventHandler({
+  required <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentBloc bloc, 
+  required <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__<%= eventNameCamelCaseWithoutUnderlineFirstUpper %> event, 
+  required Emitter<<%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentState> emit,
+}) async {}
