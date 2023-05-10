@@ -1,0 +1,7 @@
+<%- importPackages %>
+
+Future<void> <%= screenNameUpperCase %>__on<%= eventNameCamelCaseWithoutUnderlineFirstUpper %>EventHandler({
+  required <%= screenNameUpperCase %>__ScreenBloc bloc, 
+  required <%= screenNameUpperCase %>__ScreenEvent__<%= eventNameCamelCaseWithoutUnderlineFirstUpper %> event, 
+  required Emitter<<%= screenNameUpperCase %>__ScreenState> emit,
+}) async {}
