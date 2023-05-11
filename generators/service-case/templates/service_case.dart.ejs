@@ -1,0 +1,12 @@
+<%- importPackages %>
+
+abstract class SHARED__<%= serviceCaseNameCamelCaseWithoutUnderlineFirstUpper %>ServiceCase {
+  Future<
+    Either<
+      SHARED__<%= serviceCaseNameCamelCaseWithoutUnderlineFirstUpper %>ServiceCaseFailure, 
+      SHARED__<%= serviceCaseNameUpperCase %>__DataEntity
+    >
+  > <%= serviceCaseNameCamelCaseWithoutUnderline %>({
+    required String text,
+  });
+}
