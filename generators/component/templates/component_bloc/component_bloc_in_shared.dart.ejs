@@ -13,18 +13,17 @@ class <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirs
     required this.analyticsServiceCases,
     required this.logServiceCases,
   }) : super(initialState) {
-    on<<%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentEvent>((event, emit) async {
-      await event.map(
-        // --- EVENTS BEGIN ----------------------------------------------------
-        componentStarted: (componentStarted) => 
-          <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__onComponentStartedEventHandler(
-            bloc: this,
-            event: componentStarted, 
-            emit: emit,
-          ),
-        // --- EVENTS END ------------------------------------------------------
-      );
-    });
+    // --- EVENTS BEGIN --------------------------------------------------------
+    on<<%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentStarted>(
+      (event, emit) async {
+        await <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__onComponentStartedEventHandler(
+          bloc: this,
+          event: event,
+          emit: emit,
+        );
+      },
+    );
+    // --- EVENTS END ----------------------------------------------------------
   }
 
   final <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentData componentData;

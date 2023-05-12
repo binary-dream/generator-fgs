@@ -12,18 +12,17 @@ class <%= screenNameUpperCase %>__ScreenBloc
     required this.analyticsServiceCases,
     required this.logServiceCases,
   }) : super(initialState) {
-    on<<%= screenNameUpperCase %>__ScreenEvent>((event, emit) async {
-      await event.map(
-        // --- EVENTS BEGIN ----------------------------------------------------
-        screenStarted: (screenStarted) => 
-          <%= screenNameUpperCase %>__onScreenStartedEventHandler(
-            bloc: this,
-            event: screenStarted, 
-            emit: emit,
-          ),
-        // --- EVENTS END ------------------------------------------------------
-      );
-    });
+    // --- EVENTS BEGIN --------------------------------------------------------
+    on<<%= screenNameUpperCase %>__ScreenEvent__ScreenStarted>(
+      (event, emit) async {
+        await <%= screenNameUpperCase %>__onScreenStartedEventHandler(
+          bloc: this,
+          event: event,
+          emit: emit,
+        );
+      },
+    );
+    // --- EVENTS END ----------------------------------------------------------
   }
 
   final <%= screenNameUpperCase %>__ScreenData screenData;

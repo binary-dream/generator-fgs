@@ -78,7 +78,6 @@ class ScreenGenerator extends BaseGenerator {
       screenNameUpperCase,
       componentNameLowerCase,
       componentNameUpperCase,
-      eventNameCamelCaseWithoutUnderline,
       eventNameCamelCaseWithoutUnderlineFirstUpper
     });
     this._writeEvent({
@@ -137,7 +136,6 @@ class ScreenGenerator extends BaseGenerator {
     screenNameUpperCase,
     componentNameLowerCase,
     componentNameUpperCase,
-    eventNameCamelCaseWithoutUnderline,
     eventNameCamelCaseWithoutUnderlineFirstUpper
   }) {
     let destinationPath;
@@ -165,15 +163,18 @@ class ScreenGenerator extends BaseGenerator {
       const line = blocDataAsArray[i];
       if (
         line ===
-        "        // --- EVENTS END ------------------------------------------------------"
+        "    // --- EVENTS END ----------------------------------------------------------"
       ) {
         newBlocDataAsArray.push(
-          `        ${eventNameCamelCaseWithoutUnderline}: (${eventNameCamelCaseWithoutUnderline}) => `,
-          `          ${screenNameUpperCase}__${componentNameUpperCase}__on${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler(`,
-          `            bloc: this,`,
-          `            event: ${eventNameCamelCaseWithoutUnderline},`,
-          `            emit: emit,`,
-          `          ),`
+          `    on<${screenNameUpperCase}__${componentNameUpperCase}__${eventNameCamelCaseWithoutUnderlineFirstUpper}>(`,
+          `      (event, emit) async {`,
+          `        await ${screenNameUpperCase}__${componentNameUpperCase}__on${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler(`,
+          `          bloc: this,`,
+          `          event: event,`,
+          `          emit: emit,`,
+          `        );`,
+          `      },`,
+          `    );`
         );
       }
 

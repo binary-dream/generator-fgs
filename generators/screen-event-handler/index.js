@@ -58,7 +58,6 @@ class ScreenGenerator extends BaseGenerator {
     this._writeEventHandlerOnBloc({
       screenNameLowerCase,
       screenNameUpperCase,
-      eventNameCamelCaseWithoutUnderline,
       eventNameCamelCaseWithoutUnderlineFirstUpper
     });
     this._writeEvent({
@@ -96,7 +95,6 @@ class ScreenGenerator extends BaseGenerator {
   _writeEventHandlerOnBloc({
     screenNameLowerCase,
     screenNameUpperCase,
-    eventNameCamelCaseWithoutUnderline,
     eventNameCamelCaseWithoutUnderlineFirstUpper
   }) {
     let blocPath = `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_bloc.dart`;
@@ -116,15 +114,18 @@ class ScreenGenerator extends BaseGenerator {
       const line = blocDataAsArray[i];
       if (
         line ===
-        "        // --- EVENTS END ------------------------------------------------------"
+        "    // --- EVENTS END ----------------------------------------------------------"
       ) {
         newBlocDataAsArray.push(
-          `        ${eventNameCamelCaseWithoutUnderline}: (${eventNameCamelCaseWithoutUnderline}) => `,
-          `          ${screenNameUpperCase}__on${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler(`,
-          `            bloc: this,`,
-          `            event: ${eventNameCamelCaseWithoutUnderline},`,
-          `            emit: emit,`,
-          `          ),`
+          `    on<${screenNameUpperCase}__ScreenEvent__${eventNameCamelCaseWithoutUnderlineFirstUpper}>(`,
+          `      (event, emit) async {`,
+          `        await ${screenNameUpperCase}__on${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler(`,
+          `          bloc: this,`,
+          `          event: event,`,
+          `          emit: emit,`,
+          `        );`,
+          `      },`,
+          `    );`
         );
       }
 
