@@ -97,21 +97,21 @@ class ComponentGenerator extends BaseGenerator {
 
     if (screenNameLowerCase === "shared") {
       templatePath = "component/component_in_shared.dart.ejs";
-      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component.dart`;
+      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component.dart`;
       screenSpecificImports = [
-        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_bloc.dart';`,
-        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_data.dart';`,
-        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_event.dart';`,
-        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_state.dart';`
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_bloc.dart';`,
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_data.dart';`,
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_event.dart';`,
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_state.dart';`
       ];
     } else {
       templatePath = "component/component_in_screen.dart.ejs";
-      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component.dart`;
+      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component.dart`;
       screenSpecificImports = [
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_bloc.dart';`,
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_data.dart';`,
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_event.dart';`,
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_state.dart';`,
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_bloc.dart';`,
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_data.dart';`,
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_event.dart';`,
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_state.dart';`,
         `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_bloc.dart';`
       ];
     }
@@ -145,21 +145,21 @@ class ComponentGenerator extends BaseGenerator {
 
     if (screenNameLowerCase === "shared") {
       templatePath = "component_bloc/component_bloc_in_shared.dart.ejs";
-      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_bloc.dart`;
+      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_bloc.dart`;
       screenSpecificImports = [
         `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/event_handlers/shared__${componentNameLowerCase}__on_component_started_event_handler.dart';`,
-        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_data.dart';`,
-        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_event.dart';`,
-        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_state.dart';`
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_data.dart';`,
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_event.dart';`,
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_state.dart';`
       ];
     } else {
       templatePath = "component_bloc/component_bloc_in_screen.dart.ejs";
-      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_bloc.dart`;
+      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_bloc.dart`;
       screenSpecificImports = [
         `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/event_handlers/${screenNameLowerCase}__${componentNameLowerCase}__on_component_started_event_handler.dart';`,
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_data.dart';`,
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_event.dart';`,
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_state.dart';`,
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_data.dart';`,
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_event.dart';`,
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_state.dart';`,
         `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_bloc.dart';`
       ];
     }
@@ -188,9 +188,9 @@ class ComponentGenerator extends BaseGenerator {
     let destinationPath;
 
     if (screenNameLowerCase === "shared") {
-      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_state.dart`;
+      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_state.dart`;
     } else {
-      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_state.dart`;
+      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_state.dart`;
     }
 
     this.fs.copyTpl(
@@ -215,9 +215,9 @@ class ComponentGenerator extends BaseGenerator {
     let destinationPath;
 
     if (screenNameLowerCase === "shared") {
-      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_event.dart`;
+      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_event.dart`;
     } else {
-      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_event.dart`;
+      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_event.dart`;
     }
 
     this.fs.copyTpl(
@@ -242,9 +242,9 @@ class ComponentGenerator extends BaseGenerator {
     let destinationPath;
 
     if (screenNameLowerCase === "shared") {
-      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_data.dart`;
+      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_data.dart`;
     } else {
-      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_data.dart`;
+      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_data.dart`;
     }
 
     this.fs.copyTpl(
@@ -265,16 +265,16 @@ class ComponentGenerator extends BaseGenerator {
     if (screenNameLowerCase === "shared") {
       destinationPath = `lib/shared/components/${componentNameLowerCase}/event_handlers/shared__${componentNameLowerCase}__on_component_started_event_handler.dart`;
       screenSpecificImports = [
-        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_bloc.dart';`,
-        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_event.dart';`,
-        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_state.dart';`
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_bloc.dart';`,
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_event.dart';`,
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_state.dart';`
       ];
     } else {
       destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/event_handlers/${screenNameLowerCase}__${componentNameLowerCase}__on_component_started_event_handler.dart`;
       screenSpecificImports = [
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_bloc.dart';`,
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_event.dart';`,
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_state.dart';`
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_bloc.dart';`,
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_event.dart';`,
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_state.dart';`
       ];
     }
 

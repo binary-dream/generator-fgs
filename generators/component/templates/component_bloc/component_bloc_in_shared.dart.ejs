@@ -1,20 +1,20 @@
 <%- importPackages %>
 
-class <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentBloc 
+class <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc 
   extends
     Bloc<
-      <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentEvent, 
-      <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentState
+      <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentEvent, 
+      <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentState
     > {
-  <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentBloc({
+  <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc({
     required this.componentData,
-    required <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentState initialState,
+    required <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentState initialState,
     required this.uuidServiceCases,
     required this.analyticsServiceCases,
     required this.logServiceCases,
   }) : super(initialState) {
     // --- EVENTS BEGIN --------------------------------------------------------
-    on<<%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentStarted>(
+    on<<%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentEvent__ComponentStarted>(
       (event, emit) async {
         await <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__onComponentStartedEventHandler(
           bloc: this,
@@ -26,7 +26,7 @@ class <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirs
     // --- EVENTS END ----------------------------------------------------------
   }
 
-  final <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentData componentData;
+  final <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentData componentData;
   final FGS_UTILS__UuidServiceCases uuidServiceCases;
   final FGS_UTILS__AnalyticsServiceCases analyticsServiceCases;
   final FGS_UTILS__LogServiceCases logServiceCases;

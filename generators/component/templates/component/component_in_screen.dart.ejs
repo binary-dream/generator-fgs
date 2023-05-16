@@ -1,23 +1,23 @@
 <%- importPackages %>
 
-class <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>Component extends StatelessWidget {
-  const <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>Component({
+class <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__Component extends StatelessWidget {
+  const <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__Component({
     super.key,
     required this.componentData,
   });
 
-  final <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentData componentData;
+  final <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentData componentData;
 
   @override
   Widget build(BuildContext context) {
     final screenBloc = BlocProvider.of<<%= screenNameUpperCase %>__ScreenBloc>(context);
 
-    return BlocProvider<<%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentBloc>(
-      create: (context) => <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentBloc(
+    return BlocProvider<<%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc>(
+      create: (context) => <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc(
         componentData: 
           componentData,
         initialState: 
-          const <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentState.main(),
+          const <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentState.main(),
         screenBloc:
           screenBloc,
         uuidServiceCases: 
@@ -26,10 +26,10 @@ class <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirs
           diContainer.get<FGS_UTILS__AnalyticsServiceCases>(),
         logServiceCases: 
           diContainer.get<FGS_UTILS__LogServiceCases>(),
-      )..add(const <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentEvent.componentStarted()),
+      )..add(const <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentEvent.componentStarted()),
       child: BlocBuilder<
-          <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentBloc, 
-          <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentState
+          <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc, 
+          <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentState
         >(
           builder: (context, state) {
             return const Text('FGS Style');

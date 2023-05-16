@@ -1,11 +1,13 @@
 <%- importPackages %>
 
-part '<%= screenNameLowerCase %>__<%= componentNameLowerCase %>_component_event.freezed.dart';
+part '<%= screenNameLowerCase %>__<%= componentNameLowerCase %>__component_event.freezed.dart';
 
 @freezed
-class <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentEvent with _$<%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentEvent {
+class <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentEvent 
+  with 
+    _$<%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentEvent {
   // --- EVENTS BEGIN ----------------------------------------------------------
-  const factory <%= screenNameUpperCase %>__<%= componentNameCamelCaseWithoutUnderlineFirstUpper %>ComponentEvent.componentStarted() = 
-    <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentStarted;
+  const factory <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentEvent.componentStarted() = 
+    <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentEvent__ComponentStarted;
   // --- EVENTS END ------------------------------------------------------------
 }
