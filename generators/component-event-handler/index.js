@@ -85,7 +85,6 @@ class ScreenGenerator extends BaseGenerator {
       screenNameUpperCase,
       componentNameLowerCase,
       componentNameUpperCase,
-      componentNameCamelCaseWithoutUnderlineFirstUpper,
       eventNameCamelCaseWithoutUnderline,
       eventNameCamelCaseWithoutUnderlineFirstUpper
     });
@@ -103,16 +102,16 @@ class ScreenGenerator extends BaseGenerator {
     if (screenNameLowerCase === "shared") {
       destinationPath = `lib/shared/components/${componentNameLowerCase}/event_handlers/shared__${componentNameLowerCase}__on_${eventNameLowerCase}_event_handler.dart`;
       screenSpecificImports = [
-        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_bloc.dart';`,
-        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_event.dart';`,
-        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_state.dart';`
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_bloc.dart';`,
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_event.dart';`,
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_state.dart';`
       ];
     } else {
       destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/event_handlers/${screenNameLowerCase}__${componentNameLowerCase}__on_${eventNameLowerCase}_event_handler.dart`;
       screenSpecificImports = [
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_bloc.dart';`,
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_event.dart';`,
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_state.dart';`
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_bloc.dart';`,
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_event.dart';`,
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_state.dart';`
       ];
     }
 
@@ -141,9 +140,9 @@ class ScreenGenerator extends BaseGenerator {
     let destinationPath;
 
     if (screenNameLowerCase === "shared") {
-      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_bloc.dart`;
+      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_bloc.dart`;
     } else {
-      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_bloc.dart`;
+      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_bloc.dart`;
     }
 
     let blocPath = destinationPath;
@@ -166,7 +165,7 @@ class ScreenGenerator extends BaseGenerator {
         "    // --- EVENTS END ----------------------------------------------------------"
       ) {
         newBlocDataAsArray.push(
-          `    on<${screenNameUpperCase}__${componentNameUpperCase}__${eventNameCamelCaseWithoutUnderlineFirstUpper}>(`,
+          `    on<${screenNameUpperCase}__${componentNameUpperCase}__ComponentEvent__${eventNameCamelCaseWithoutUnderlineFirstUpper}>(`,
           `      (event, emit) async {`,
           `        await ${screenNameUpperCase}__${componentNameUpperCase}__on${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler(`,
           `          bloc: this,`,
@@ -192,16 +191,15 @@ class ScreenGenerator extends BaseGenerator {
     screenNameUpperCase,
     componentNameLowerCase,
     componentNameUpperCase,
-    componentNameCamelCaseWithoutUnderlineFirstUpper,
     eventNameCamelCaseWithoutUnderline,
     eventNameCamelCaseWithoutUnderlineFirstUpper
   }) {
     let destinationPath;
 
     if (screenNameLowerCase === "shared") {
-      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}_component_event.dart`;
+      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_event.dart`;
     } else {
-      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}_component_event.dart`;
+      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_event.dart`;
     }
 
     let eventPath = destinationPath;
@@ -224,8 +222,8 @@ class ScreenGenerator extends BaseGenerator {
         "  // --- EVENTS END ------------------------------------------------------------"
       ) {
         newEventDataAsArray.push(
-          `  const factory ${screenNameUpperCase}__${componentNameCamelCaseWithoutUnderlineFirstUpper}ComponentEvent.${eventNameCamelCaseWithoutUnderline}() = `,
-          `    ${screenNameUpperCase}__${componentNameUpperCase}__${eventNameCamelCaseWithoutUnderlineFirstUpper};`
+          `  const factory ${screenNameUpperCase}__${componentNameUpperCase}__ComponentEvent.${eventNameCamelCaseWithoutUnderline}() = `,
+          `    ${screenNameUpperCase}__${componentNameUpperCase}__ComponentEvent__${eventNameCamelCaseWithoutUnderlineFirstUpper};`
         );
       }
 
