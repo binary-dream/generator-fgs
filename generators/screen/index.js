@@ -205,7 +205,7 @@ class ScreenGenerator extends BaseGenerator {
           `    FGS_UTILS__Route(`,
           `      name: ROUTES__${screenNameCamelCaseWithoutUnderline}RouteName,`,
           `      path: '/${screenNameLowerCase.replaceAll("_", "-")}',`,
-          `      builder: (context, routeState) {`,
+          `      builder: (context, routerState) {`,
           `        return ${screenNameUpperCase}__Screen(`,
           `          screenData: ${screenNameUpperCase}__ScreenData(),`,
           `        );`,
