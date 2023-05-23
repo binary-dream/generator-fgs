@@ -20,8 +20,6 @@ class BaseGenerator extends Generator {
     );
     this.log(`    The program will ask for the component name.`);
     this.log(``);
-    this.log(`- Run 'yo fgs:di-container' to create the di container files.`);
-    this.log(``);
     this.log(`- Run 'yo fgs:routes' to create the routes.dart file.`);
     this.log(``);
     this.log(`- Run 'yo fgs:screen' to create a new screen.`);
