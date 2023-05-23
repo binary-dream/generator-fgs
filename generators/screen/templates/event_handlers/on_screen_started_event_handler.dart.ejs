@@ -5,7 +5,7 @@ Future<void> <%= screenNameUpperCase %>__onScreenStartedEventHandler({
   required <%= screenNameUpperCase %>__ScreenEvent__ScreenStarted event, 
   required Emitter<<%= screenNameUpperCase %>__ScreenState> emit,
 }) async {
-  await bloc.analyticsServiceCases.setCurrentScreen(
+  await bloc.analyticsService.setCurrentScreenForAnalytics(
     screenName: ROUTES__<%= screenNameCamelCaseWithoutUnderline %>RouteName,
   );
 }

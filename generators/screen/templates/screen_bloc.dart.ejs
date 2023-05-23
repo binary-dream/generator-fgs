@@ -8,9 +8,9 @@ class <%= screenNameUpperCase %>__ScreenBloc
   <%= screenNameUpperCase %>__ScreenBloc({
     required this.screenData,
     required <%= screenNameUpperCase %>__ScreenState initialState, 
-    required this.uuidServiceCases,
-    required this.analyticsServiceCases,
-    required this.logServiceCases,
+    required this.uuidService,
+    required this.analyticsService,
+    required this.logService,
   }) : super(initialState) {
     // --- EVENTS BEGIN --------------------------------------------------------
     on<<%= screenNameUpperCase %>__ScreenEvent__ScreenStarted>(
@@ -26,7 +26,7 @@ class <%= screenNameUpperCase %>__ScreenBloc
   }
 
   final <%= screenNameUpperCase %>__ScreenData screenData;
-  final FGS_UTILS__UuidServiceCases uuidServiceCases;
-  final FGS_UTILS__AnalyticsServiceCases analyticsServiceCases;
-  final FGS_UTILS__LogServiceCases logServiceCases;
+  final FGS_UTILS__UuidService uuidService;
+  final FGS_UTILS__AnalyticsService analyticsService;
+  final FGS_UTILS__LogService logService;
 }

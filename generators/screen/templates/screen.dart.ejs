@@ -27,12 +27,12 @@ class <%= screenNameUpperCase %>__Screen extends StatelessWidget with
             screenData,
           initialState: 
             const <%= screenNameUpperCase %>__ScreenState.main(),
-          uuidServiceCases: 
-            diContainer.get<FGS_UTILS__UuidServiceCases>(),
-          analyticsServiceCases: 
-            diContainer.get<FGS_UTILS__AnalyticsServiceCases>(),
-          logServiceCases: 
-            diContainer.get<FGS_UTILS__LogServiceCases>(),
+          uuidService: 
+            diContainer.get<FGS_UTILS__UuidService>(),
+          analyticsService: 
+            diContainer.get<FGS_UTILS__AnalyticsService>(),
+          logService: 
+            diContainer.get<FGS_UTILS__LogService>(),
         )
         ..add(const <%= screenNameUpperCase %>__ScreenEvent.screenStarted()),
       child: MultiBlocListener(
