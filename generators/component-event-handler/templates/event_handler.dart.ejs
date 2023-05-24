@@ -1,7 +1,9 @@
 <%- importPackages %>
 
-Future<void> <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__on<%= eventNameCamelCaseWithoutUnderlineFirstUpper %>EventHandler({
-  required <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc bloc, 
-  required <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentEvent__<%= eventNameCamelCaseWithoutUnderlineFirstUpper %> event, 
-  required Emitter<<%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentState> emit,
-}) async {}
+class <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__On<%= eventNameCamelCaseWithoutUnderlineFirstUpper %>EventHandler {
+  Future<void> execute({
+    required <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc bloc, 
+    required <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentEvent__<%= eventNameCamelCaseWithoutUnderlineFirstUpper %> event, 
+    required Emitter<<%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentState> emit,
+  }) async {}
+}

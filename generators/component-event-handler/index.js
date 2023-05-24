@@ -80,6 +80,13 @@ class ScreenGenerator extends BaseGenerator {
       componentNameUpperCase,
       eventNameCamelCaseWithoutUnderlineFirstUpper
     });
+    this._writeEventHandlerOnComponent({
+      screenNameLowerCase,
+      screenNameUpperCase,
+      componentNameLowerCase,
+      componentNameUpperCase,
+      eventNameCamelCaseWithoutUnderlineFirstUpper
+    });
     this._writeEvent({
       screenNameLowerCase,
       screenNameUpperCase,
@@ -162,12 +169,21 @@ class ScreenGenerator extends BaseGenerator {
       const line = blocDataAsArray[i];
       if (
         line ===
+        "    // --- EVENT HANDLERS ON CONSTRUCTOR END -----------------------------------"
+      ) {
+        newBlocDataAsArray.push(
+          `    required this.on${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler,`
+        );
+      }
+
+      if (
+        line ===
         "    // --- EVENTS END ----------------------------------------------------------"
       ) {
         newBlocDataAsArray.push(
           `    on<${screenNameUpperCase}__${componentNameUpperCase}__ComponentEvent__${eventNameCamelCaseWithoutUnderlineFirstUpper}>(`,
           `      (event, emit) async {`,
-          `        await ${screenNameUpperCase}__${componentNameUpperCase}__on${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler(`,
+          `        await on${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler.execute(`,
           `          bloc: this,`,
           `          event: event,`,
           `          emit: emit,`,
@@ -177,12 +193,75 @@ class ScreenGenerator extends BaseGenerator {
         );
       }
 
+      if (
+        line ===
+        "  // --- EVENT HANDLERS DECLARATIONS END ---------------------------------------"
+      ) {
+        newBlocDataAsArray.push(
+          `  final ${screenNameUpperCase}__${componentNameUpperCase}__On${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler`,
+          `    on${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler;`
+        );
+      }
+
       newBlocDataAsArray.push(line);
     }
 
     this.fs.write(
       this.destinationPath(blocPath),
       newBlocDataAsArray.join("\n")
+    );
+  }
+
+  _writeEventHandlerOnComponent({
+    screenNameLowerCase,
+    screenNameUpperCase,
+    componentNameLowerCase,
+    componentNameUpperCase,
+    eventNameCamelCaseWithoutUnderlineFirstUpper
+  }) {
+    let destinationPath;
+
+    if (screenNameLowerCase === "shared") {
+      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component.dart`;
+    } else {
+      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component.dart`;
+    }
+
+    let componentPath = destinationPath;
+    let componentDataAsString;
+
+    try {
+      componentDataAsString = this.fs.read(
+        this.destinationPath(componentPath),
+        "utf8"
+      );
+    } catch (_) {
+      throw new Error(`${componentPath} file not found`);
+    }
+
+    const componentDataAsArray = componentDataAsString.split("\n");
+
+    const newComponentDataAsArray = [];
+
+    for (let i = 0; i < componentDataAsArray.length; i++) {
+      const line = componentDataAsArray[i];
+
+      if (
+        line ===
+        "        // --- EVENT HANDLERS ON CONSTRUCTOR END -------------------------------"
+      ) {
+        newComponentDataAsArray.push(
+          `        on${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler: `,
+          `          ${screenNameUpperCase}__${componentNameUpperCase}__On${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler(),`
+        );
+      }
+
+      newComponentDataAsArray.push(line);
+    }
+
+    this.fs.write(
+      this.destinationPath(componentPath),
+      newComponentDataAsArray.join("\n")
     );
   }
 
