@@ -1,11 +1,13 @@
 <%- importPackages %>
 
-Future<void> <%= screenNameUpperCase %>__onScreenStartedEventHandler({
-  required <%= screenNameUpperCase %>__ScreenBloc bloc, 
-  required <%= screenNameUpperCase %>__ScreenEvent__ScreenStarted event, 
-  required Emitter<<%= screenNameUpperCase %>__ScreenState> emit,
-}) async {
-  await bloc.analyticsService.setCurrentScreenForAnalytics(
-    screenName: ROUTES__<%= screenNameCamelCaseWithoutUnderline %>RouteName,
-  );
+class <%= screenNameUpperCase %>__OnScreenStartedEventHandler {
+  Future<void> execute({
+    required <%= screenNameUpperCase %>__ScreenBloc bloc, 
+    required <%= screenNameUpperCase %>__ScreenEvent__ScreenStarted event, 
+    required Emitter<<%= screenNameUpperCase %>__ScreenState> emit,
+  }) async {
+    await bloc.analyticsService.setCurrentScreenForAnalytics(
+      screenName: ROUTES__<%= screenNameCamelCaseWithoutUnderline %>RouteName,
+    );
+  }
 }

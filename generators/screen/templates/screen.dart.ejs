@@ -33,6 +33,10 @@ class <%= screenNameUpperCase %>__Screen extends StatelessWidget with
           diContainer.get<FGS_UTILS__AnalyticsService>(),
         logService: 
           diContainer.get<FGS_UTILS__LogService>(),
+        // --- EVENT HANDLERS ON CONSTRUCTOR BEGIN -----------------------------
+        onScreenStartedEventHandler:
+          <%= screenNameUpperCase %>__OnScreenStartedEventHandler(),
+        // --- EVENT HANDLERS ON CONSTRUCTOR END -------------------------------
       )
       ..add(const <%= screenNameUpperCase %>__ScreenEvent.screenStarted()),
       child: MultiBlocListener(

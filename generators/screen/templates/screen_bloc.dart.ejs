@@ -11,11 +11,14 @@ class <%= screenNameUpperCase %>__ScreenBloc
     required this.uuidService,
     required this.analyticsService,
     required this.logService,
+    // --- EVENT HANDLERS ON CONSTRUCTOR BEGIN ---------------------------------
+    required this.onScreenStartedEventHandler,
+    // --- EVENT HANDLERS ON CONSTRUCTOR END -----------------------------------
   }) : super(initialState) {
     // --- EVENTS BEGIN --------------------------------------------------------
     on<<%= screenNameUpperCase %>__ScreenEvent__ScreenStarted>(
       (event, emit) async {
-        await <%= screenNameUpperCase %>__onScreenStartedEventHandler(
+        await onScreenStartedEventHandler.execute(
           bloc: this,
           event: event,
           emit: emit,
@@ -29,4 +32,8 @@ class <%= screenNameUpperCase %>__ScreenBloc
   final FGS_UTILS__UuidService uuidService;
   final FGS_UTILS__AnalyticsService analyticsService;
   final FGS_UTILS__LogService logService;
+  // --- EVENT HANDLERS DECLARATIONS BEGIN -------------------------------------
+  final <%= screenNameUpperCase %>__OnScreenStartedEventHandler 
+    onScreenStartedEventHandler;
+  // --- EVENT HANDLERS DECLARATIONS END ---------------------------------------
 }
