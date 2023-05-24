@@ -13,11 +13,14 @@ class <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc
     required this.uuidService,
     required this.analyticsService,
     required this.logService,
+    // --- EVENT HANDLERS ON CONSTRUCTOR BEGIN ---------------------------------
+    required this.onComponentStartedEventHandler,
+    // --- EVENT HANDLERS ON CONSTRUCTOR END -----------------------------------
   }) : super(initialState) {
     // --- EVENTS BEGIN --------------------------------------------------------
     on<<%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentEvent__ComponentStarted>(
       (event, emit) async {
-        await <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__onComponentStartedEventHandler(
+        await onComponentStartedEventHandler.execute(
           bloc: this,
           event: event,
           emit: emit,
@@ -32,4 +35,8 @@ class <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc
   final FGS_UTILS__UuidService uuidService;
   final FGS_UTILS__AnalyticsService analyticsService;
   final FGS_UTILS__LogService logService;
+  // --- EVENT HANDLERS DECLARATIONS BEGIN -------------------------------------
+  final <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__OnComponentStartedEventHandler 
+    onComponentStartedEventHandler;
+  // --- EVENT HANDLERS DECLARATIONS END ---------------------------------------
 }
