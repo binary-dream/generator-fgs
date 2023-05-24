@@ -23,18 +23,18 @@ class <%= screenNameUpperCase %>__Screen extends StatelessWidget with
   Widget build(BuildContext context) {
     return BlocProvider<<%= screenNameUpperCase %>__ScreenBloc>(
       create: (context) => <%= screenNameUpperCase %>__ScreenBloc(
-          screenData: 
-            screenData,
-          initialState: 
-            const <%= screenNameUpperCase %>__ScreenState.main(),
-          uuidService: 
-            diContainer.get<FGS_UTILS__UuidService>(),
-          analyticsService: 
-            diContainer.get<FGS_UTILS__AnalyticsService>(),
-          logService: 
-            diContainer.get<FGS_UTILS__LogService>(),
-        )
-        ..add(const <%= screenNameUpperCase %>__ScreenEvent.screenStarted()),
+        screenData: 
+          screenData,
+        initialState: 
+          const <%= screenNameUpperCase %>__ScreenState.main(),
+        uuidService: 
+          diContainer.get<FGS_UTILS__UuidService>(),
+        analyticsService: 
+          diContainer.get<FGS_UTILS__AnalyticsService>(),
+        logService: 
+          diContainer.get<FGS_UTILS__LogService>(),
+      )
+      ..add(const <%= screenNameUpperCase %>__ScreenEvent.screenStarted()),
       child: MultiBlocListener(
         listeners: [
           getNavigateToBlocListener(),
