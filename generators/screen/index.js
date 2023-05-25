@@ -50,6 +50,13 @@ class ScreenGenerator extends BaseGenerator {
       screenNameCamelCaseWithoutUnderline,
       screenNameUpperCase
     });
+    this._writeLocalizedText({
+      templateData,
+      screenNameLowerCase
+    });
+    this._writeL10nTextExamples({
+      screenNameLowerCase
+    });
   }
 
   _writeScreen({ templateData, screenNameLowerCase }) {
@@ -221,6 +228,71 @@ class ScreenGenerator extends BaseGenerator {
       this.destinationPath("lib/routes.dart"),
       newRoutesDataAsArray.join("\n")
     );
+  }
+
+  _writeLocalizedText({ templateData, screenNameLowerCase }) {
+    this.fs.copyTpl(
+      this.templatePath("localized_text.dart.ejs"),
+      this.destinationPath(
+        `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__localized_text.dart`
+      ),
+      {
+        ...templateData,
+        importPackages: [
+          `import 'package:fgs_utils/fgs_utils.dart';`,
+          `import 'package:flutter/material.dart';`,
+          `import 'package:flutter_gen/gen_l10n/app_localizations.dart';`,
+          `import 'package:freezed_annotation/freezed_annotation.dart';`
+        ]
+          .sort()
+          .join("\n")
+      }
+    );
+  }
+
+  _writeL10nTextExamples({ screenNameLowerCase }) {
+    this._writeExampleTextForLanguage({
+      screenNameLowerCase,
+      filePath: `lib/l10n/arb/app_en.arb`,
+      exampleInTheLanguage: "Example"
+    });
+    this._writeExampleTextForLanguage({
+      screenNameLowerCase,
+      filePath: `lib/l10n/arb/app_pt.arb`,
+      exampleInTheLanguage: "Exemplo"
+    });
+  }
+
+  _writeExampleTextForLanguage({
+    screenNameLowerCase,
+    filePath,
+    exampleInTheLanguage
+  }) {
+    let arbDataAsString;
+
+    try {
+      arbDataAsString = this.fs.read(this.destinationPath(filePath), "utf8");
+    } catch (_) {
+      throw new Error(`${filePath} file not found`);
+    }
+
+    const arbDataAsArray = arbDataAsString.split("\n");
+
+    const newArbDataAsArray = [];
+
+    for (let i = 0; i < arbDataAsArray.length; i++) {
+      const line = arbDataAsArray[i];
+      if (i === 0) {
+        newArbDataAsArray.push(line);
+        newArbDataAsArray.push(
+          `  "${screenNameLowerCase}__example": "${exampleInTheLanguage}",`
+        );
+      } else {
+        newArbDataAsArray.push(line);
+      }
+    }
+
+    this.fs.write(this.destinationPath(filePath), newArbDataAsArray.join("\n"));
   }
 }
 

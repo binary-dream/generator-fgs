@@ -1,0 +1,27 @@
+<%- importPackages %>
+
+part '<%= screenNameLowerCase %>__localized_text.freezed.dart';
+
+@freezed
+class <%= screenNameUpperCase %>__LocalizedText 
+  with 
+    _$<%= screenNameUpperCase %>__LocalizedText 
+  implements 
+    FGS_UTILS__TranslateableMessageState {
+  const <%= screenNameUpperCase %>__LocalizedText._();
+  
+  // --- BEGIN TEXTS DECLARATIONS ----------------------------------------------
+  const factory <%= screenNameUpperCase %>__LocalizedText.example() = 
+    <%= screenNameUpperCase %>__LocalizedText__Example;
+  // --- END TEXTS DECLARATIONS ------------------------------------------------
+
+  @override
+  String translate(BuildContext context) {
+    return map(
+      // --- BEGIN TEXTS TRANSLATIONS ------------------------------------------
+      example: (_) => 
+        AppLocalizations.of(context).<%= screenNameLowerCase %>__example,
+      // --- END TEXTS TRANSLATIONS --------------------------------------------
+    );
+  }
+}
