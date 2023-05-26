@@ -85,6 +85,7 @@ class WidgetGenerator extends BaseGenerator {
         ...templateData,
         importPackages: [
           ...screenSpecificImports,
+          `import 'package:fgs_utils/fgs_utils.dart';`,
           `import 'package:flutter/material.dart';`
         ]
           .sort()
