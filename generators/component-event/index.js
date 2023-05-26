@@ -80,7 +80,7 @@ class ScreenGenerator extends BaseGenerator {
       componentNameUpperCase,
       eventNameCamelCaseWithoutUnderlineFirstUpper
     });
-    this._writeEventHandlerOnComponent({
+    this._writeEventHandlerOnComponentWrapper({
       screenNameLowerCase,
       screenNameUpperCase,
       componentNameLowerCase,
@@ -212,7 +212,7 @@ class ScreenGenerator extends BaseGenerator {
     );
   }
 
-  _writeEventHandlerOnComponent({
+  _writeEventHandlerOnComponentWrapper({
     screenNameLowerCase,
     screenNameUpperCase,
     componentNameLowerCase,
@@ -222,9 +222,9 @@ class ScreenGenerator extends BaseGenerator {
     let destinationPath;
 
     if (screenNameLowerCase === "shared") {
-      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component.dart`;
+      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_wrapper.dart`;
     } else {
-      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component.dart`;
+      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_wrapper.dart`;
     }
 
     let componentPath = destinationPath;
@@ -248,11 +248,11 @@ class ScreenGenerator extends BaseGenerator {
 
       if (
         line ===
-        "        // --- EVENT HANDLERS ON CONSTRUCTOR END -------------------------------"
+        "      // --- EVENT HANDLERS ON CONSTRUCTOR END ---------------------------------"
       ) {
         newComponentDataAsArray.push(
-          `        on${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler: `,
-          `          ${screenNameUpperCase}__${componentNameUpperCase}__On${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler(),`
+          `      on${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler: `,
+          `        ${screenNameUpperCase}__${componentNameUpperCase}__On${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler(),`
         );
       }
 
