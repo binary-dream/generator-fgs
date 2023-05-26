@@ -61,7 +61,7 @@ class ScreenGenerator extends BaseGenerator {
       eventNameCamelCaseWithoutUnderlineFirstUpper,
       eventNameCamelCaseWithoutUnderline
     });
-    this._writeEventHandlerOnScreen({
+    this._writeEventHandlerOnScreenWrapper({
       screenNameLowerCase,
       screenNameUpperCase,
       eventNameCamelCaseWithoutUnderlineFirstUpper,
@@ -164,45 +164,45 @@ class ScreenGenerator extends BaseGenerator {
     );
   }
 
-  _writeEventHandlerOnScreen({
+  _writeEventHandlerOnScreenWrapper({
     screenNameLowerCase,
     screenNameUpperCase,
     eventNameCamelCaseWithoutUnderlineFirstUpper
   }) {
-    let screenPath = `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen.dart`;
-    let screenDataAsString;
+    let screenWrapperPath = `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_wrapper.dart`;
+    let screenWrapperDataAsString;
 
     try {
-      screenDataAsString = this.fs.read(
-        this.destinationPath(screenPath),
+      screenWrapperDataAsString = this.fs.read(
+        this.destinationPath(screenWrapperPath),
         "utf8"
       );
     } catch (_) {
-      throw new Error(`${screenPath} file not found`);
+      throw new Error(`${screenWrapperPath} file not found`);
     }
 
-    const screenDataAsArray = screenDataAsString.split("\n");
+    const screenWrapperDataAsArray = screenWrapperDataAsString.split("\n");
 
-    const newScreenDataAsArray = [];
+    const newScreenWrapperDataAsArray = [];
 
-    for (let i = 0; i < screenDataAsArray.length; i++) {
-      const line = screenDataAsArray[i];
+    for (let i = 0; i < screenWrapperDataAsArray.length; i++) {
+      const line = screenWrapperDataAsArray[i];
       if (
         line ===
-        "        // --- EVENT HANDLERS ON CONSTRUCTOR END -------------------------------"
+        "      // --- EVENT HANDLERS ON CONSTRUCTOR END ---------------------------------"
       ) {
-        newScreenDataAsArray.push(
-          `        on${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler:`,
-          `          ${screenNameUpperCase}__On${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler(),`
+        newScreenWrapperDataAsArray.push(
+          `      on${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler:`,
+          `        ${screenNameUpperCase}__On${eventNameCamelCaseWithoutUnderlineFirstUpper}EventHandler(),`
         );
       }
 
-      newScreenDataAsArray.push(line);
+      newScreenWrapperDataAsArray.push(line);
     }
 
     this.fs.write(
-      this.destinationPath(screenPath),
-      newScreenDataAsArray.join("\n")
+      this.destinationPath(screenWrapperPath),
+      newScreenWrapperDataAsArray.join("\n")
     );
   }
 
