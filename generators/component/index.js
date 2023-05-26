@@ -59,6 +59,11 @@ class ComponentGenerator extends BaseGenerator {
       screenNameLowerCase,
       componentNameLowerCase
     });
+    this._writeComponentWrapper({
+      templateData,
+      screenNameLowerCase,
+      componentNameLowerCase
+    });
     this._writeComponentBloc({
       templateData,
       screenNameLowerCase,
@@ -91,28 +96,58 @@ class ComponentGenerator extends BaseGenerator {
     screenNameLowerCase,
     componentNameLowerCase
   }) {
-    let templatePath;
+    let templatePath = "component.dart.ejs";
+    let destinationPath;
+
+    if (screenNameLowerCase === "shared") {
+      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component.dart`;
+    } else {
+      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component.dart`;
+    }
+
+    this.fs.copyTpl(
+      this.templatePath(templatePath),
+      this.destinationPath(destinationPath),
+      {
+        ...templateData,
+        importPackages: [
+          `import 'package:fgs_utils/fgs_utils.dart';`,
+          `import 'package:flutter/material.dart';`
+        ]
+          .sort()
+          .join("\n")
+      }
+    );
+  }
+
+  _writeComponentWrapper({
+    templateData,
+    screenNameLowerCase,
+    componentNameLowerCase
+  }) {
+    let templatePath = "component_wrapper.dart.ejs";
     let destinationPath;
     let screenSpecificImports;
 
     if (screenNameLowerCase === "shared") {
-      templatePath = "component/component_in_shared.dart.ejs";
-      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component.dart`;
+      destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_wrapper.dart`;
       screenSpecificImports = [
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/event_handlers/shared__${componentNameLowerCase}__on_component_started_event_handler.dart';`,
+        `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component.dart';`,
         `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_bloc.dart';`,
         `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_data.dart';`,
         `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_event.dart';`,
         `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_state.dart';`
       ];
     } else {
-      templatePath = "component/component_in_screen.dart.ejs";
-      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component.dart`;
+      destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_wrapper.dart`;
       screenSpecificImports = [
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/event_handlers/${screenNameLowerCase}__${componentNameLowerCase}__on_component_started_event_handler.dart';`,
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component.dart';`,
         `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_bloc.dart';`,
         `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_data.dart';`,
         `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_event.dart';`,
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_state.dart';`,
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_bloc.dart';`
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_state.dart';`
       ];
     }
 
@@ -122,7 +157,6 @@ class ComponentGenerator extends BaseGenerator {
       {
         ...templateData,
         importPackages: [
-          `import 'package:${this.packageName}/di_container/di_container.dart';`,
           ...screenSpecificImports,
           `import 'package:fgs_utils/fgs_utils.dart';`,
           `import 'package:flutter/material.dart';`,
@@ -139,12 +173,11 @@ class ComponentGenerator extends BaseGenerator {
     screenNameLowerCase,
     componentNameLowerCase
   }) {
-    let templatePath;
+    let templatePath = "component_bloc.dart.ejs";
     let destinationPath;
     let screenSpecificImports;
 
     if (screenNameLowerCase === "shared") {
-      templatePath = "component_bloc/component_bloc_in_shared.dart.ejs";
       destinationPath = `lib/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_bloc.dart`;
       screenSpecificImports = [
         `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/event_handlers/shared__${componentNameLowerCase}__on_component_started_event_handler.dart';`,
@@ -153,14 +186,12 @@ class ComponentGenerator extends BaseGenerator {
         `import 'package:${this.packageName}/shared/components/${componentNameLowerCase}/shared__${componentNameLowerCase}__component_state.dart';`
       ];
     } else {
-      templatePath = "component_bloc/component_bloc_in_screen.dart.ejs";
       destinationPath = `lib/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_bloc.dart`;
       screenSpecificImports = [
         `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/event_handlers/${screenNameLowerCase}__${componentNameLowerCase}__on_component_started_event_handler.dart';`,
         `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_data.dart';`,
         `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_event.dart';`,
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_state.dart';`,
-        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_bloc.dart';`
+        `import 'package:${this.packageName}/screens/${screenNameLowerCase}/components/${componentNameLowerCase}/${screenNameLowerCase}__${componentNameLowerCase}__component_state.dart';`
       ];
     }
 

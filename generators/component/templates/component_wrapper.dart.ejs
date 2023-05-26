@@ -1,0 +1,45 @@
+<%- importPackages %>
+
+class <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentWrapper 
+  extends 
+    FGS_UTILS__BaseWidget {
+  const <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentWrapper({
+    super.key,
+    required this.componentData,
+  });
+
+  final <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentData componentData;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<<%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc>(
+      create: (context) {
+        return _createBloc(context)
+          ..add(
+            const <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentEvent.componentStarted(),
+          );
+      },
+      child: const <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__Component(),
+    );
+  }
+
+  <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc _createBloc(BuildContext context) {
+    final diContainerService = getDiContainerService(context);
+    return <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc(
+      componentData: 
+        componentData,
+      initialState: 
+        const <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentState.main(),
+      uuidService: 
+        diContainerService.get<FGS_UTILS__UuidService>(),
+      analyticsService:
+        diContainerService.get<FGS_UTILS__AnalyticsService>(),
+      logService: 
+        diContainerService.get<FGS_UTILS__LogService>(),
+      // --- EVENT HANDLERS ON CONSTRUCTOR BEGIN -------------------------------
+      onComponentStartedEventHandler: 
+        <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__OnComponentStartedEventHandler(),
+      // --- EVENT HANDLERS ON CONSTRUCTOR END ---------------------------------
+    );
+  }
+}
