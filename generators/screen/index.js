@@ -37,6 +37,7 @@ class ScreenGenerator extends BaseGenerator {
     };
 
     this._writeScreen({ templateData, screenNameLowerCase });
+    this._writeScreenWrapper({ templateData, screenNameLowerCase });
     this._writeScreenData({ templateData, screenNameLowerCase });
     this._writeScreenEvent({ templateData, screenNameLowerCase });
     this._writeScreenBloc({ templateData, screenNameLowerCase });
@@ -69,8 +70,27 @@ class ScreenGenerator extends BaseGenerator {
         ...templateData,
         importPackages: [
           `import 'package:flutter/material.dart';`,
+          `import 'package:fgs_utils/fgs_utils.dart';`
+        ]
+          .sort()
+          .join("\n")
+      }
+    );
+  }
+
+  _writeScreenWrapper({ templateData, screenNameLowerCase }) {
+    this.fs.copyTpl(
+      this.templatePath("screen_wrapper.dart.ejs"),
+      this.destinationPath(
+        `lib/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_wrapper.dart`
+      ),
+      {
+        ...templateData,
+        importPackages: [
+          `import 'package:flutter/material.dart';`,
           `import 'package:flutter_bloc/flutter_bloc.dart';`,
-          `import 'package:${this.packageName}/di_container/di_container.dart';`,
+          `import 'package:${this.packageName}/screens/${screenNameLowerCase}/event_handlers/${screenNameLowerCase}__on_screen_started_event_handler.dart';`,
+          `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen.dart';`,
           `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_bloc.dart';`,
           `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_data.dart';`,
           `import 'package:${this.packageName}/screens/${screenNameLowerCase}/${screenNameLowerCase}__screen_event.dart';`,

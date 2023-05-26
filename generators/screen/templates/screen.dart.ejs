@@ -1,54 +1,15 @@
 <%- importPackages %>
 
-class <%= screenNameUpperCase %>__Screen extends StatelessWidget with
-  FGS_UTILS__NavigableWidgetMixin<
-    <%= screenNameUpperCase %>__ScreenBloc, 
-    <%= screenNameUpperCase %>__ScreenEvent, 
-    <%= screenNameUpperCase %>__ScreenState
-  >,
-  FGS_UTILS__ToastMessageLauncherWidgetMixin<
-    <%= screenNameUpperCase %>__ScreenBloc, 
-    <%= screenNameUpperCase %>__ScreenEvent, 
-    <%= screenNameUpperCase %>__ScreenState
-  > {
-
+class <%= screenNameUpperCase %>__Screen extends FGS_UTILS__BaseWidget {
   const <%= screenNameUpperCase %>__Screen({ 
     super.key,
-    required this.screenData,
   });
-
-  final <%= screenNameUpperCase %>__ScreenData screenData;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<<%= screenNameUpperCase %>__ScreenBloc>(
-      create: (context) => <%= screenNameUpperCase %>__ScreenBloc(
-        screenData: 
-          screenData,
-        initialState: 
-          const <%= screenNameUpperCase %>__ScreenState.main(),
-        uuidService: 
-          diContainer.get<FGS_UTILS__UuidService>(),
-        analyticsService: 
-          diContainer.get<FGS_UTILS__AnalyticsService>(),
-        logService: 
-          diContainer.get<FGS_UTILS__LogService>(),
-        // --- EVENT HANDLERS ON CONSTRUCTOR BEGIN -----------------------------
-        onScreenStartedEventHandler:
-          <%= screenNameUpperCase %>__OnScreenStartedEventHandler(),
-        // --- EVENT HANDLERS ON CONSTRUCTOR END -------------------------------
-      )
-      ..add(const <%= screenNameUpperCase %>__ScreenEvent.screenStarted()),
-      child: MultiBlocListener(
-        listeners: [
-          getNavigateToBlocListener(),
-          getToastMessageBlocListener(),
-        ],
-        child: Scaffold(
-          appBar: AppBar(),
-          body: Container(),
-        ),
-      ),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(),
     );
   }
 }

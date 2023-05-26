@@ -1,0 +1,56 @@
+<%- importPackages %>
+
+class <%= screenNameUpperCase %>__ScreenWrapper 
+  extends 
+    FGS_UTILS__BaseWidget
+  with
+    FGS_UTILS__NavigableWidgetMixin<
+      <%= screenNameUpperCase %>__ScreenBloc, 
+      <%= screenNameUpperCase %>__ScreenEvent,
+      <%= screenNameUpperCase %>__ScreenState
+    >,
+    FGS_UTILS__ToastMessageLauncherWidgetMixin<
+      <%= screenNameUpperCase %>__ScreenBloc,
+      <%= screenNameUpperCase %>__ScreenEvent, 
+      <%= screenNameUpperCase %>__ScreenState
+    > {
+  const <%= screenNameUpperCase %>__ScreenWrapper({
+    super.key,
+    super.diContainerService,
+    required this.screenData,
+  });
+
+  final <%= screenNameUpperCase %>__ScreenData screenData;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<<%= screenNameUpperCase %>__ScreenBloc>(
+      create: (context) {
+        return _createBloc(context)
+          ..add(const <%= screenNameUpperCase %>__ScreenEvent.screenStarted());
+      },
+      child: MultiBlocListener(
+        listeners: [
+          getNavigateToBlocListener(),
+          getToastMessageBlocListener(),
+        ],
+        child: const <%= screenNameUpperCase %>__Screen(),
+      ),
+    );
+  }
+
+  <%= screenNameUpperCase %>__ScreenBloc _createBloc(BuildContext context) {
+    final diContainerService = getDiContainerService(context);
+    return <%= screenNameUpperCase %>__ScreenBloc(
+      screenData: screenData,
+      initialState: const <%= screenNameUpperCase %>__ScreenState.main(),
+      uuidService: diContainerService.get<FGS_UTILS__UuidService>(),
+      analyticsService: diContainerService.get<FGS_UTILS__AnalyticsService>(),
+      logService: diContainerService.get<FGS_UTILS__LogService>(),
+      // --- EVENT HANDLERS ON CONSTRUCTOR BEGIN -------------------------------
+      onScreenStartedEventHandler: 
+        <%= screenNameUpperCase %>__OnScreenStartedEventHandler(),
+      // --- EVENT HANDLERS ON CONSTRUCTOR END ---------------------------------
+    );
+  }
+}
