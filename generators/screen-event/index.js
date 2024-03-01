@@ -2,6 +2,7 @@
 import BaseGenerator from "../../base_generator.js";
 import camel from "to-camel-case";
 import { upperCaseFirst } from "upper-case-first";
+import fs from "fs";
 
 class ScreenGenerator extends BaseGenerator {
   async prompting() {
@@ -158,6 +159,7 @@ class ScreenGenerator extends BaseGenerator {
       newBlocDataAsArray.push(line);
     }
 
+    fs.unlinkSync(this.destinationPath(blocPath));
     this.fs.write(
       this.destinationPath(blocPath),
       newBlocDataAsArray.join("\n")
@@ -200,6 +202,7 @@ class ScreenGenerator extends BaseGenerator {
       newScreenWrapperDataAsArray.push(line);
     }
 
+    fs.unlinkSync(this.destinationPath(screenWrapperPath));
     this.fs.write(
       this.destinationPath(screenWrapperPath),
       newScreenWrapperDataAsArray.join("\n")
@@ -240,6 +243,7 @@ class ScreenGenerator extends BaseGenerator {
       newEventDataAsArray.push(line);
     }
 
+    fs.unlinkSync(this.destinationPath(eventPath));
     this.fs.write(
       this.destinationPath(eventPath),
       newEventDataAsArray.join("\n")
