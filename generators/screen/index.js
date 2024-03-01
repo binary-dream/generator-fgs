@@ -1,6 +1,7 @@
 "use strict";
 import BaseGenerator from "../../base_generator.js";
 import camel from "to-camel-case";
+import fs from "fs";
 
 class ScreenGenerator extends BaseGenerator {
   async prompting() {
@@ -244,6 +245,7 @@ class ScreenGenerator extends BaseGenerator {
       newRoutesDataAsArray.push(line);
     }
 
+    fs.unlinkSync(this.destinationPath("lib/routes.dart"));
     this.fs.write(
       this.destinationPath("lib/routes.dart"),
       newRoutesDataAsArray.join("\n")
