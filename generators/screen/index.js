@@ -234,7 +234,7 @@ class ScreenGenerator extends BaseGenerator {
           `      name: ROUTES__${screenNameCamelCaseWithoutUnderline}RouteName,`,
           `      path: '/${screenNameLowerCase.replaceAll("_", "-")}',`,
           `      builder: (context, routerState) {`,
-          `        return ${screenNameUpperCase}__Screen(`,
+          `        return ${screenNameUpperCase}__ScreenWrapper(`,
           `          screenData: ${screenNameUpperCase}__ScreenData(),`,
           `        );`,
           `      },`,
@@ -314,6 +314,7 @@ class ScreenGenerator extends BaseGenerator {
       }
     }
 
+    fs.unlinkSync(this.destinationPath(filePath));
     this.fs.write(this.destinationPath(filePath), newArbDataAsArray.join("\n"));
   }
 }
