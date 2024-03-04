@@ -8,9 +8,9 @@ class <%= screenNameUpperCase %>__ScreenBloc
   <%= screenNameUpperCase %>__ScreenBloc({
     required this.screenData,
     required <%= screenNameUpperCase %>__ScreenState initialState, 
-    required this.uuidService,
-    required this.analyticsService,
-    required this.logService,
+    required this.uuidProvider,
+    required this.analyticsProvider,
+    required this.logProvider,
     // --- EVENT HANDLERS ON CONSTRUCTOR BEGIN ---------------------------------
     required this.onScreenStartedEventHandler,
     // --- EVENT HANDLERS ON CONSTRUCTOR END -----------------------------------
@@ -29,9 +29,9 @@ class <%= screenNameUpperCase %>__ScreenBloc
   }
 
   final <%= screenNameUpperCase %>__ScreenData screenData;
-  final FGS_UTILS__UuidService uuidService;
-  final FGS_UTILS__AnalyticsService analyticsService;
-  final FGS_UTILS__LogService logService;
+  final FGS_UTILS__UuidProvider uuidProvider;
+  final FGS_UTILS__AnalyticsProvider analyticsProvider;
+  final FGS_UTILS__LogProvider logProvider;
   // --- EVENT HANDLERS DECLARATIONS BEGIN -------------------------------------
   final <%= screenNameUpperCase %>__OnScreenStartedEventHandler 
     onScreenStartedEventHandler;

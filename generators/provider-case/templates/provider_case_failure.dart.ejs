@@ -1,0 +1,14 @@
+<%- importPackages %>
+
+part 'shared__<%= providerCaseNameLowerCase %>_provider_case_failure.freezed.dart';
+
+@freezed
+class SHARED__<%= providerCaseNameCamelCaseWithoutUnderlineFirstUpper %>ProviderCaseFailure 
+  with 
+    _$SHARED__<%= providerCaseNameCamelCaseWithoutUnderlineFirstUpper %>ProviderCaseFailure {
+  const factory SHARED__<%= providerCaseNameCamelCaseWithoutUnderlineFirstUpper %>ProviderCaseFailure.unexpected({
+    String? message, 
+    dynamic exception, 
+    StackTrace? stackTrace,
+  }) = SHARED__<%= providerCaseNameCamelCaseWithoutUnderlineFirstUpper %>ProviderCaseFailure__Unexpected;
+}

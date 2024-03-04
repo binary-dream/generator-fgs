@@ -6,7 +6,7 @@ class <%= screenNameUpperCase %>__OnScreenStartedEventHandler {
     required <%= screenNameUpperCase %>__ScreenEvent__ScreenStarted event, 
     required Emitter<<%= screenNameUpperCase %>__ScreenState> emit,
   }) async {
-    await bloc.analyticsService.setCurrentScreenForAnalytics(
+    await bloc.analyticsProvider.setCurrentScreenForAnalytics(
       screenName: ROUTES__<%= screenNameCamelCaseWithoutUnderline %>RouteName,
     );
   }

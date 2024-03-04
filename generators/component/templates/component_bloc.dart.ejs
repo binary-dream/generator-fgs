@@ -9,9 +9,9 @@ class <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc
   <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc({
     required this.componentData,
     required <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentState initialState,
-    required this.uuidService,
-    required this.analyticsService,
-    required this.logService,
+    required this.uuidProvider,
+    required this.analyticsProvider,
+    required this.logProvider,
     // --- EVENT HANDLERS ON CONSTRUCTOR BEGIN ---------------------------------
     required this.onComponentStartedEventHandler,
     // --- EVENT HANDLERS ON CONSTRUCTOR END -----------------------------------
@@ -30,9 +30,9 @@ class <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentBloc
   }
 
   final <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__ComponentData componentData;
-  final FGS_UTILS__UuidService uuidService;
-  final FGS_UTILS__AnalyticsService analyticsService;
-  final FGS_UTILS__LogService logService;
+  final FGS_UTILS__UuidProvider uuidProvider;
+  final FGS_UTILS__AnalyticsProvider analyticsProvider;
+  final FGS_UTILS__LogProvider logProvider;
   // --- EVENT HANDLERS DECLARATIONS BEGIN -------------------------------------
   final <%= screenNameUpperCase %>__<%= componentNameUpperCase %>__OnComponentStartedEventHandler 
     onComponentStartedEventHandler;

@@ -16,7 +16,7 @@ class <%= screenNameUpperCase %>__ScreenWrapper
     > {
   const <%= screenNameUpperCase %>__ScreenWrapper({
     super.key,
-    super.diContainerService,
+    super.diContainerProvider,
     required this.screenData,
   });
 
@@ -40,13 +40,13 @@ class <%= screenNameUpperCase %>__ScreenWrapper
   }
 
   <%= screenNameUpperCase %>__ScreenBloc _createBloc(BuildContext context) {
-    final diContainerService = getDiContainerService(context);
+    final diContainerProvider = getDiContainerProvider(context);
     return <%= screenNameUpperCase %>__ScreenBloc(
       screenData: screenData,
       initialState: const <%= screenNameUpperCase %>__ScreenState.main(),
-      uuidService: diContainerService.get<FGS_UTILS__UuidService>(),
-      analyticsService: diContainerService.get<FGS_UTILS__AnalyticsService>(),
-      logService: diContainerService.get<FGS_UTILS__LogService>(),
+      uuidProvider: diContainerProvider.get<FGS_UTILS__UuidProvider>(),
+      analyticsProvider: diContainerProvider.get<FGS_UTILS__AnalyticsProvider>(),
+      logProvider: diContainerProvider.get<FGS_UTILS__LogProvider>(),
       // --- EVENT HANDLERS ON CONSTRUCTOR BEGIN -------------------------------
       onScreenStartedEventHandler: 
         <%= screenNameUpperCase %>__OnScreenStartedEventHandler(),

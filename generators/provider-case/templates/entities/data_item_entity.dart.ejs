@@ -1,0 +1,14 @@
+<%- importPackages %>
+
+part 'shared__<%= providerCaseNameLowerCase %>__data_item_entity.freezed.dart';
+
+@freezed
+class SHARED__<%= providerCaseNameUpperCase %>__DataItemEntity 
+  with 
+    _$SHARED__<%= providerCaseNameUpperCase %>__DataItemEntity {
+  const SHARED__<%= providerCaseNameUpperCase %>__DataItemEntity._();
+
+  const factory SHARED__<%= providerCaseNameUpperCase %>__DataItemEntity.main({
+    required String text,
+  }) = SHARED__<%= providerCaseNameUpperCase %>__DataItemEntity__Main;
+}
